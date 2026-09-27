@@ -23,8 +23,9 @@ body {
 }
     .cat-card img {
   border-radius: 10px;
-      max-width: 100%;
-
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 }
     #cats {
   display: grid;
@@ -58,6 +59,17 @@ body {
   border: 1px solid #d8d4cc;
   border-radius: 20px;
   background-color: white;
+}
+    .male {
+  color: #3979b8;
+}
+
+.female {
+  color: #c95d70;
+}
+
+.unknown {
+  color: #444444;
 }
 </style>
 </head>
@@ -94,7 +106,9 @@ body {
     area.innerHTML += `
       <div class="cat-card">
         <img src="${cat.photo}" width="300">
-        <h2>${cat.name} ${cat.gender}</h2>
+        <h2 class="${cat.gender === '♂' ? 'male' : cat.gender === '♀' ? 'female' : 'unknown'}">
+  ${cat.name} ${cat.gender}
+</h2>
         <p>${cat.pattern}</p>
         <p>${cat.comment}</p>
       </div>
