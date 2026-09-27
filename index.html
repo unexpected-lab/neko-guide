@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>猫紹介</title>
+</head>
+
+<body>
+  <h1>猫紹介</h1>
+
+  <div id="cats">猫たちを呼んでいます...</div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzW8f5C6udDtnsFlnmUIitDnEZSi_VmRvvh1fua50oD-UPZIbNpLArBgWOC1bZK5HeBsA/exec";
+
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(cats => {
+        const area = document.getElementById("cats");
+        area.innerHTML = "";
+
+        cats.forEach(cat => {
+          area.innerHTML += `
+            <div>
+              <img src="${cat.photo}" width="300">
+              <h2>${cat.name}</h2>
+              <p>${cat.pattern}</p>
+              <p>${cat.comment}</p>
+            </div>
+          `;
+        });
+      });
+  </script>
+</body>
+</html>
