@@ -38,11 +38,19 @@ body {
   text-align: center;
   font-family: "Zen Maru Gothic", sans-serif;
 }
+    .filter-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+}
 </style>
 </head>
 
 <body>
   <h1>この子、どんな子？</h1>
+  <div class="filter-area">
 <label for="pattern">何色？：</label>
 
 <select id="pattern">
@@ -58,6 +66,7 @@ body {
   <option value="茶白">茶白</option>
   <option value="その他">その他</option>
 </select>
+    </div>
   <div id="cats">猫たちを呼んでいます...</div>
 
   <script>
