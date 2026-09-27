@@ -8,29 +8,56 @@
 
 <body>
   <h1>猫紹介</h1>
+<label for="pattern">柄から探す：</label>
 
+<select id="pattern">
+  <option value="all">すべて</option>
+  <option value="キジトラ">キジトラ</option>
+  <option value="キジ白">キジ白</option>
+  <option value="三毛">三毛</option>
+  <option value="サビ">サビ</option>
+  <option value="白黒">白黒</option>
+  <option value="黒">黒</option>
+  <option value="白">白</option>
+  <option value="茶トラ">茶トラ</option>
+  <option value="茶白">茶白</option>
+  <option value="その他">その他</option>
+</select>
   <div id="cats">猫たちを呼んでいます...</div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzW8f5C6udDtnsFlnmUIitDnEZSi_VmRvvh1fua50oD-UPZIbNpLArBgWOC1bZK5HeBsA/exec";
+    let allCats = [];
+    function showCats(cats) {
+  const area = document.getElementById("cats");
+  area.innerHTML = "";
 
+  cats.forEach(cat => {
+    area.innerHTML += `
+      <div>
+        <img src="${cat.photo}" width="300">
+        <h2>${cat.name}</h2>
+        <p>${cat.pattern}</p>
+        <p>${cat.comment}</p>
+      </div>
+    `;
+  });
+}
     fetch(API_URL)
       .then(response => response.json())
       .then(cats => {
-        const area = document.getElementById("cats");
-        area.innerHTML = "";
-
-        cats.forEach(cat => {
-          area.innerHTML += `
-            <div>
-              <img src="${cat.photo}" width="300">
-              <h2>${cat.name}</h2>
-              <p>${cat.pattern}</p>
-              <p>${cat.comment}</p>
-            </div>
-          `;
-        });
+        allCats = cats;
+       showCats(cats);
       });
+    document.getElementById("pattern").addEventListener("change", function() {
+  const selectedPattern = this.value;
+
+  if (selectedPattern === "all") {
+showCats(allCats);
+  } else {
+showCats(allCats.filter(cat => cat.pattern === selectedPattern));
+  }
+});
   </script>
 </body>
 </html>
