@@ -53,7 +53,8 @@ body {
     gap: 8px;
   }
 }
-    #pattern {
+    #pattern,
+　　 #gender {
   font-family: "Zen Maru Gothic", sans-serif;
   font-size: 15px;
   padding: 8px 32px 8px 14px;
@@ -93,7 +94,14 @@ body {
   <option value="茶白">茶白</option>
   <option value="その他">その他</option>
 </select>
-    </div>
+<label for="gender">性別は？：</label>
+
+<select id="gender">
+  <option value="all">すべて</option>
+  <option value="♂">男の子</option>
+  <option value="♀">女の子</option>
+</select>
+  </div>
   <div id="cats">猫たちを呼んでいます...</div>
 
   <script>
@@ -122,15 +130,25 @@ body {
         allCats = cats;
        showCats(cats);
       });
-    document.getElementById("pattern").addEventListener("change", function() {
-  const selectedPattern = this.value;
+    function filterCats() {
+  const selectedPattern = document.getElementById("pattern").value;
+  const selectedGender = document.getElementById("gender").value;
 
-  if (selectedPattern === "all") {
-showCats(allCats);
-  } else {
-showCats(allCats.filter(cat => cat.pattern === selectedPattern));
-  }
-});
+  const filteredCats = allCats.filter(cat => {
+    const patternMatch =
+      selectedPattern === "all" || cat.pattern === selectedPattern;
+
+    const genderMatch =
+      selectedGender === "all" || cat.gender === selectedGender;
+
+    return patternMatch && genderMatch;
+  });
+
+  showCats(filteredCats);
+}
+
+document.getElementById("pattern").addEventListener("change", filterCats);
+document.getElementById("gender").addEventListener("change", filterCats);
   </script>
 </body>
 </html>
