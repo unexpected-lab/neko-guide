@@ -427,6 +427,7 @@
 
       document.getElementById("list-view").style.display = "none";
       document.getElementById("detail-view").style.display = "block";
+      checkInterestStatus(cat.id);
 
       window.scrollTo(0, 0);
     }
@@ -485,6 +486,24 @@ function sendInterest(catId) {
   button.disabled = true;
   button.textContent = "🐾 気になる！";
   message.textContent = "この子への「気になる！」を受け付けました。";
+}
+
+function checkInterestStatus(catId) {
+
+  const today = getToday();
+  const key = `interest_${catId}`;
+  const lastDate = localStorage.getItem(key);
+
+  if (lastDate !== today) {
+    return;
+  }
+
+  const button = document.getElementById("interest-button");
+  const message = document.getElementById("interest-message");
+
+  button.disabled = true;
+  button.textContent = "🐾 今日の気になる！送信済み";
+  message.textContent = "また明日、気になったら押してね。";
 }
     /* -------------------------
        一覧に戻る
