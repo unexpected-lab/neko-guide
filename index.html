@@ -3,152 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>この子、どんな子？</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
-body {
-  background-color: #f5f2eb;
-  padding: 24px;
-  font-family: sans-serif;
-}
+    body {
+      background-color: #f5f2eb;
+      padding: 24px;
+      font-family: sans-serif;
+    }
+
     .cat-card {
-  background-color: white;
-  padding: 16px;
-  margin-top: 20px;
+      background-color: white;
+      padding: 16px;
+      margin-top: 20px;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       font-family: "Zen Maru Gothic", sans-serif;
       text-align: center;
-}
+    }
+
     .cat-card img {
-  border-radius: 10px;
-  max-width: 100%;
-  display: block;
-  margin: 0 auto;
-}
+      border-radius: 10px;
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .catch-copy {
+      margin: 14px 0 4px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #555;
+    }
+
+    .cat-card h2 {
+      margin: 4px 0 8px;
+    }
+
     #cats {
-  display: grid;
+      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-}
+    }
+
     h1 {
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-align: center;
-  font-family: "Zen Maru Gothic", sans-serif;
-}
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-align: center;
+      font-family: "Zen Maru Gothic", sans-serif;
+    }
+
     .filter-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 24px 0;
-}
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
     @media (max-width: 600px) {
-  .filter-area {
-    flex-direction: column;
-    gap: 8px;
-  }
-}
+      .filter-area {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
     #pattern,
-　　 #gender {
-  font-family: "Zen Maru Gothic", sans-serif;
-  font-size: 15px;
-  padding: 8px 32px 8px 14px;
-  border: 1px solid #d8d4cc;
-  border-radius: 20px;
-  background-color: white;
-}
+    #gender {
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 15px;
+      padding: 8px 32px 8px 14px;
+      border: 1px solid #d8d4cc;
+      border-radius: 20px;
+      background-color: white;
+    }
+
     .male {
-  color: #3979b8;
-}
+      color: #3979b8;
+    }
 
-.female {
-  color: #c95d70;
-}
+    .female {
+      color: #c95d70;
+    }
 
-.unknown {
-  color: #444444;
-}
-</style>
+    .unknown {
+      color: #444444;
+    }
+  </style>
 </head>
 
 <body>
+
   <h1>この子、どんな子？</h1>
+
   <div class="filter-area">
-<label for="pattern">何色？：</label>
 
-<select id="pattern">
-  <option value="all">すべて</option>
-  <option value="キジトラ">キジトラ</option>
-  <option value="キジ白">キジ白</option>
-  <option value="三毛">三毛</option>
-  <option value="サビ">サビ</option>
-  <option value="白黒">白黒</option>
-  <option value="黒">黒</option>
-  <option value="白">白</option>
-  <option value="茶トラ">茶トラ</option>
-  <option value="茶白">茶白</option>
-  <option value="その他">その他</option>
-</select>
-<label for="gender">性別は？：</label>
+    <label for="pattern">何色？：</label>
 
-<select id="gender">
-  <option value="all">すべて</option>
-  <option value="♂">男の子</option>
-  <option value="♀">女の子</option>
-</select>
+    <select id="pattern">
+      <option value="all">すべて</option>
+      <option value="キジトラ">キジトラ</option>
+      <option value="キジ白">キジ白</option>
+      <option value="三毛">三毛</option>
+      <option value="サビ">サビ</option>
+      <option value="白黒">白黒</option>
+      <option value="黒">黒</option>
+      <option value="白">白</option>
+      <option value="茶トラ">茶トラ</option>
+      <option value="茶白">茶白</option>
+      <option value="その他">その他</option>
+    </select>
+
+    <label for="gender">性別は？：</label>
+
+    <select id="gender">
+      <option value="all">すべて</option>
+      <option value="♂">男の子</option>
+      <option value="♀">女の子</option>
+    </select>
+
   </div>
+
   <div id="cats">猫たちを呼んでいます...</div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzW8f5C6udDtnsFlnmUIitDnEZSi_VmRvvh1fua50oD-UPZIbNpLArBgWOC1bZK5HeBsA/exec";
-    let allCats = [];
-    function showCats(cats) {
-  const area = document.getElementById("cats");
-  area.innerHTML = "";
 
-  cats.forEach(cat => {
-    area.innerHTML += `
-      <div class="cat-card">
-        <img src="${cat.photo}" width="300">
-        <h2 class="${cat.gender === '♂' ? 'male' : cat.gender === '♀' ? 'female' : 'unknown'}">
-  ${cat.name} ${cat.gender}
-</h2>
-        <p>${cat.pattern}</p>
-        <p>${cat.comment}</p>
-      </div>
-    `;
-  });
-}
+    let allCats = [];
+
+    function showCats(cats) {
+      const area = document.getElementById("cats");
+      area.innerHTML = "";
+
+      cats.forEach(cat => {
+
+        const catchCopy = cat.catchCopy
+          ? `<p class="catch-copy">${cat.catchCopy}</p>`
+          : "";
+
+        area.innerHTML += `
+          <div class="cat-card">
+            <img src="${cat.photo}" width="300">
+
+            ${catchCopy}
+
+            <h2 class="${cat.gender === '♂' ? 'male' : cat.gender === '♀' ? 'female' : 'unknown'}">
+              ${cat.name} ${cat.gender}
+            </h2>
+
+            <p>${cat.pattern}</p>
+          </div>
+        `;
+      });
+    }
+
     fetch(API_URL)
       .then(response => response.json())
       .then(cats => {
         allCats = cats;
-       showCats(cats);
+        showCats(cats);
       });
+
     function filterCats() {
-  const selectedPattern = document.getElementById("pattern").value;
-  const selectedGender = document.getElementById("gender").value;
+      const selectedPattern = document.getElementById("pattern").value;
+      const selectedGender = document.getElementById("gender").value;
 
-  const filteredCats = allCats.filter(cat => {
-    const patternMatch =
-      selectedPattern === "all" || cat.pattern === selectedPattern;
+      const filteredCats = allCats.filter(cat => {
+        const patternMatch =
+          selectedPattern === "all" || cat.pattern === selectedPattern;
 
-    const genderMatch =
-      selectedGender === "all" || cat.gender === selectedGender;
+        const genderMatch =
+          selectedGender === "all" || cat.gender === selectedGender;
 
-    return patternMatch && genderMatch;
-  });
+        return patternMatch && genderMatch;
+      });
 
-  showCats(filteredCats);
-}
+      showCats(filteredCats);
+    }
 
-document.getElementById("pattern").addEventListener("change", filterCats);
-document.getElementById("gender").addEventListener("change", filterCats);
+    document.getElementById("pattern").addEventListener("change", filterCats);
+    document.getElementById("gender").addEventListener("change", filterCats);
   </script>
+
 </body>
 </html>
