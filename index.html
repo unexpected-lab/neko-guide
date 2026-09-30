@@ -110,6 +110,44 @@
     .unknown {
       color: #444444;
     }
+    /* -------------------------
+   気になるボタン
+------------------------- */
+
+.interest-area {
+  padding-top: 24px;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.interest-button {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  background-color: #f5f2eb;
+  color: #555;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.interest-button:hover {
+  transform: translateY(-2px);
+}
+
+.interest-button:disabled {
+  cursor: default;
+  opacity: 0.7;
+  transform: none;
+}
+
+.interest-message {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #777;
+}
 
     /* -------------------------
        詳細画面
@@ -372,6 +410,17 @@
             "💡 暮らすうえで知っておいてほしいこと",
             cat.livingNotes
           )}
+          <div class="interest-area">
+  <button
+    id="interest-button"
+    class="interest-button"
+    onclick="sendInterest('${cat.id}')"
+  >
+    🐾 この子が気になる
+  </button>
+
+  <p id="interest-message" class="interest-message"></p>
+</div>
 
         </article>
       `;
@@ -401,7 +450,42 @@
       `;
     }
 
+/* -------------------------
+   気になるボタン
+------------------------- */
 
+function getToday() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function sendInterest(catId) {
+
+  const today = getToday();
+  const key = `interest_${catId}`;
+  const lastDate = localStorage.getItem(key);
+
+  const button = document.getElementById("interest-button");
+  const message = document.getElementById("interest-message");
+
+  if (lastDate === today) {
+    button.disabled = true;
+    button.textContent = "🐾 今日の気になる！送信済み";
+    message.textContent = "また明日、気になったら押してね。";
+    return;
+  }
+
+  localStorage.setItem(key, today);
+
+  button.disabled = true;
+  button.textContent = "🐾 気になる！";
+  message.textContent = "この子への「気になる！」を受け付けました。";
+}
     /* -------------------------
        一覧に戻る
     ------------------------- */
