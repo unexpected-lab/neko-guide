@@ -15,7 +15,20 @@
       background-color: #f5f2eb;
       padding: 24px;
       font-family: sans-serif;
+      color: #444;
     }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-align: center;
+      font-family: "Zen Maru Gothic", sans-serif;
+    }
+
+    /* -------------------------
+       一覧
+    ------------------------- */
 
     .cat-card {
       background-color: white;
@@ -25,16 +38,23 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       font-family: "Zen Maru Gothic", sans-serif;
       text-align: center;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
 
     .cat-card img {
-  width: 100%;
-  height: 280px;
-  object-fit: contain;
-  border-radius: 10px;
-  display: block;
-  background-color: #f5f2eb;
-}
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+      background-color: #f5f2eb;
+    }
 
     .catch-copy {
       margin: 14px 0 4px;
@@ -53,13 +73,9 @@
       gap: 20px;
     }
 
-    h1 {
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-align: center;
-      font-family: "Zen Maru Gothic", sans-serif;
-    }
+    /* -------------------------
+       絞り込み
+    ------------------------- */
 
     .filter-area {
       display: flex;
@@ -67,13 +83,6 @@
       align-items: center;
       gap: 12px;
       margin: 24px 0;
-    }
-
-    @media (max-width: 600px) {
-      .filter-area {
-        flex-direction: column;
-        gap: 8px;
-      }
     }
 
     #pattern,
@@ -86,6 +95,10 @@
       background-color: white;
     }
 
+    /* -------------------------
+       性別
+    ------------------------- */
+
     .male {
       color: #3979b8;
     }
@@ -97,47 +110,175 @@
     .unknown {
       color: #444444;
     }
+
+    /* -------------------------
+       詳細画面
+    ------------------------- */
+
+    #detail-view {
+      display: none;
+      max-width: 520px;
+      margin: 0 auto;
+      font-family: "Zen Maru Gothic", sans-serif;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin: 4px 0 18px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: #666;
+      font-family: "Zen Maru Gothic", sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      text-decoration: underline;
+    }
+
+    .detail-card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .detail-photo-frame {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      padding: 4px;
+      background: #f5f2eb;
+      border: 1px solid #eee5d8;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .detail-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 15px;
+      display: block;
+    }
+
+    .detail-name {
+      margin: 16px 0 4px;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    .detail-basic {
+      margin: 0 0 24px;
+      color: #777;
+      text-align: center;
+    }
+
+    .detail-catch-copy {
+      margin: 8px 0 20px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .detail-info {
+      padding: 16px 0;
+      border-top: 1px solid #eee;
+    }
+
+    .detail-info h2 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .detail-info p {
+      margin: 0;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    /* -------------------------
+       スマホ
+    ------------------------- */
+
+    @media (max-width: 600px) {
+      body {
+        padding: 16px;
+      }
+
+      .filter-area {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <h1>この子、どんな子？</h1>
+  <!-- 一覧画面 -->
+  <div id="list-view">
 
-  <div class="filter-area">
+    <h1>この子、どんな子？</h1>
 
-    <label for="pattern">何色？：</label>
+    <div class="filter-area">
 
-    <select id="pattern">
-      <option value="all">すべて</option>
-      <option value="キジトラ">キジトラ</option>
-      <option value="キジ白">キジ白</option>
-      <option value="三毛">三毛</option>
-      <option value="サビ">サビ</option>
-      <option value="白黒">白黒</option>
-      <option value="黒">黒</option>
-      <option value="白">白</option>
-      <option value="茶トラ">茶トラ</option>
-      <option value="茶白">茶白</option>
-      <option value="その他">その他</option>
-    </select>
+      <label for="pattern">何色？：</label>
 
-    <label for="gender">性別は？：</label>
+      <select id="pattern">
+        <option value="all">すべて</option>
+        <option value="キジトラ">キジトラ</option>
+        <option value="キジ白">キジ白</option>
+        <option value="三毛">三毛</option>
+        <option value="サビ">サビ</option>
+        <option value="白黒">白黒</option>
+        <option value="黒">黒</option>
+        <option value="白">白</option>
+        <option value="茶トラ">茶トラ</option>
+        <option value="茶白">茶白</option>
+        <option value="その他">その他</option>
+      </select>
 
-    <select id="gender">
-      <option value="all">すべて</option>
-      <option value="♂">男の子</option>
-      <option value="♀">女の子</option>
-    </select>
+      <label for="gender">性別は？：</label>
+
+      <select id="gender">
+        <option value="all">すべて</option>
+        <option value="♂">男の子</option>
+        <option value="♀">女の子</option>
+      </select>
+
+    </div>
+
+    <div id="cats">猫たちを呼んでいます...</div>
 
   </div>
 
-  <div id="cats">猫たちを呼んでいます...</div>
+
+  <!-- 詳細画面 -->
+  <div id="detail-view">
+
+    <button class="back-button" onclick="showList()">
+      ← 一覧にもどる
+    </button>
+
+    <div id="detail-content"></div>
+
+  </div>
+
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzW8f5C6udDtnsFlnmUIitDnEZSi_VmRvvh1fua50oD-UPZIbNpLArBgWOC1bZK5HeBsA/exec";
 
     let allCats = [];
+
+
+    /* -------------------------
+       一覧表示
+    ------------------------- */
 
     function showCats(cats) {
       const area = document.getElementById("cats");
@@ -150,38 +291,170 @@
           : "";
 
         area.innerHTML += `
-          <div class="cat-card">
-            <img src="${cat.photo}" width="300">
+          <div class="cat-card" onclick="showDetail('${cat.id}')">
+
+            <img src="${cat.photo}" alt="${cat.name}">
 
             ${catchCopy}
 
-            <h2 class="${cat.gender === '♂' ? 'male' : cat.gender === '♀' ? 'female' : 'unknown'}">
+            <h2 class="${getGenderClass(cat.gender)}">
               ${cat.name} ${cat.gender}
             </h2>
 
             <p>${cat.pattern}</p>
+
           </div>
         `;
       });
     }
 
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(cats => {
-        allCats = cats;
-        showCats(cats);
-      });
+
+    /* -------------------------
+       詳細表示
+    ------------------------- */
+
+    function showDetail(id) {
+
+      const cat = allCats.find(cat => String(cat.id) === String(id));
+
+      if (!cat) {
+        return;
+      }
+
+      const detail = document.getElementById("detail-content");
+
+      detail.innerHTML = `
+        <article class="detail-card">
+
+          <div class="detail-photo-frame">
+            <img
+              src="${cat.photo}"
+              alt="${cat.name}"
+              class="detail-photo"
+            >
+          </div>
+
+          <h1 class="detail-name ${getGenderClass(cat.gender)}">
+            ${cat.name} ${cat.gender}
+          </h1>
+
+          <p class="detail-basic">
+            ${cat.pattern}
+          </p>
+
+          ${
+            cat.catchCopy
+              ? `<p class="detail-catch-copy">${cat.catchCopy}</p>`
+              : ""
+          }
+
+          ${makeDetailSection(
+            "👤 人との距離感",
+            cat.humanDistance
+          )}
+
+          ${makeDetailSection(
+            "🐈 他の猫との関係",
+            cat.catRelationship
+          )}
+
+          ${makeDetailSection(
+            "🏠 普段の過ごし方",
+            cat.dailyLife
+          )}
+
+          ${makeDetailSection(
+            "♡ 好きなこと",
+            cat.likes
+          )}
+
+          ${makeDetailSection(
+            "💡 暮らすうえで知っておいてほしいこと",
+            cat.livingNotes
+          )}
+
+        </article>
+      `;
+
+      document.getElementById("list-view").style.display = "none";
+      document.getElementById("detail-view").style.display = "block";
+
+      window.scrollTo(0, 0);
+    }
+
+
+    /* -------------------------
+       空欄なら項目ごと消す
+    ------------------------- */
+
+    function makeDetailSection(title, text) {
+
+      if (!text || String(text).trim() === "") {
+        return "";
+      }
+
+      return `
+        <section class="detail-info">
+          <h2>${title}</h2>
+          <p>${text}</p>
+        </section>
+      `;
+    }
+
+
+    /* -------------------------
+       一覧に戻る
+    ------------------------- */
+
+    function showList() {
+      document.getElementById("detail-view").style.display = "none";
+      document.getElementById("list-view").style.display = "block";
+
+      filterCats();
+
+      window.scrollTo(0, 0);
+    }
+
+
+    /* -------------------------
+       性別の色
+    ------------------------- */
+
+    function getGenderClass(gender) {
+
+      if (gender === "♂") {
+        return "male";
+      }
+
+      if (gender === "♀") {
+        return "female";
+      }
+
+      return "unknown";
+    }
+
+
+    /* -------------------------
+       絞り込み
+    ------------------------- */
 
     function filterCats() {
-      const selectedPattern = document.getElementById("pattern").value;
-      const selectedGender = document.getElementById("gender").value;
+
+      const selectedPattern =
+        document.getElementById("pattern").value;
+
+      const selectedGender =
+        document.getElementById("gender").value;
 
       const filteredCats = allCats.filter(cat => {
+
         const patternMatch =
-          selectedPattern === "all" || cat.pattern === selectedPattern;
+          selectedPattern === "all" ||
+          cat.pattern === selectedPattern;
 
         const genderMatch =
-          selectedGender === "all" || cat.gender === selectedGender;
+          selectedGender === "all" ||
+          cat.gender === selectedGender;
 
         return patternMatch && genderMatch;
       });
@@ -189,8 +462,29 @@
       showCats(filteredCats);
     }
 
-    document.getElementById("pattern").addEventListener("change", filterCats);
-    document.getElementById("gender").addEventListener("change", filterCats);
+
+    document
+      .getElementById("pattern")
+      .addEventListener("change", filterCats);
+
+    document
+      .getElementById("gender")
+      .addEventListener("change", filterCats);
+
+
+    /* -------------------------
+       データ取得
+    ------------------------- */
+
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(cats => {
+
+        allCats = cats;
+
+        showCats(cats);
+      });
+
   </script>
 
 </body>
