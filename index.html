@@ -481,11 +481,32 @@ function sendInterest(catId) {
     return;
   }
 
-  localStorage.setItem(key, today);
+  // GASへ「この猫が気になる」を送る
+  fetch(API_URL, {
+    method: "POST",
+    body: new URLSearchParams({
+      catId: catId
+    })
+  })
+    .then(response => response.json())
+    .then(result => {
 
-  button.disabled = true;
-  button.textContent = "🐾 気になる！";
-  message.textContent = "この子への「気になる！」を受け付けました。";
+      if (!result.success) {
+        message.textContent = "うまく送れませんでした。もう一度お試しください。";
+        return;
+      }
+
+      // 送信成功してから「今日押した」と記録
+      localStorage.setItem(key, today);
+
+      button.disabled = true;
+      button.textContent = "🐾 気になる！";
+      message.textContent = "この子への「気になる！」を受け付けました。";
+    })
+    .catch(error => {
+      console.error(error);
+      message.textContent = "うまく送れませんでした。もう一度お試しください。";
+    });
 }
 
 function checkInterestStatus(catId) {
