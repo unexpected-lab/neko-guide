@@ -481,7 +481,11 @@ function sendInterest(catId) {
     return;
   }
 
-  // GASへ「この猫が気になる」を送る
+  // 押した瞬間にロック
+  button.disabled = true;
+  button.textContent = "🐾 送信中…";
+  message.textContent = "送信しています…";
+
   fetch(API_URL, {
     method: "POST",
     body: new URLSearchParams({
@@ -492,11 +496,14 @@ function sendInterest(catId) {
     .then(result => {
 
       if (!result.success) {
+        // 失敗したらもう一度押せるように戻す
+        button.disabled = false;
+        button.textContent = "🐾 この子が気になる";
         message.textContent = "うまく送れませんでした。もう一度お試しください。";
         return;
       }
 
-      // 送信成功してから「今日押した」と記録
+      // 成功したら今日の記録を保存
       localStorage.setItem(key, today);
 
       button.disabled = true;
@@ -505,6 +512,10 @@ function sendInterest(catId) {
     })
     .catch(error => {
       console.error(error);
+
+      // 通信そのものに失敗した場合も復活
+      button.disabled = false;
+      button.textContent = "🐾 この子が気になる";
       message.textContent = "うまく送れませんでした。もう一度お試しください。";
     });
 }
