@@ -312,6 +312,7 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbzW8f5C6udDtnsFlnmUIitDnEZSi_VmRvvh1fua50oD-UPZIbNpLArBgWOC1bZK5HeBsA/exec";
 
     let allCats = [];
+    let listScrollPosition = 0;
 
 
     /* -------------------------
@@ -352,6 +353,7 @@
     ------------------------- */
 
     function showDetail(id) {
+      listScrollPosition = window.scrollY;
 
       const cat = allCats.find(cat => String(cat.id) === String(id));
 
@@ -547,7 +549,7 @@ function checkInterestStatus(catId) {
 
       filterCats();
 
-      window.scrollTo(0, 0);
+      window.scrollTo(0, listScrollPosition);
     }
 
 
