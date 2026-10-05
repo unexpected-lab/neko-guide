@@ -501,24 +501,13 @@ function sendInterest(catId) {
       catId: catId
     })
   })
-    .then(response => response.json())
-    .then(result => {
+    .then(response => {
+  localStorage.setItem(key, today);
 
-      if (!result.success) {
-        // 失敗したらもう一度押せるように戻す
-        button.disabled = false;
-        button.textContent = "🐾 この子が気になる";
-        message.textContent = "うまく送れませんでした。もう一度お試しください。";
-        return;
-      }
-
-      // 成功したら今日の記録を保存
-      localStorage.setItem(key, today);
-
-      button.disabled = true;
-      button.textContent = "🐾 気になる！";
-      message.textContent = "この子への「気になる！」を受け付けました。";
-    })
+  button.disabled = true;
+  button.textContent = "🐾 気になる！";
+  message.textContent = "この子への「気になる！」を受け付けました。";
+})
     .catch(error => {
       console.error(error);
 
